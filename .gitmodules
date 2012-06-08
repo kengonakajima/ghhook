@@ -1,3 +1,6 @@
 [submodule "rumino"]
 	path = rumino
 	url = git@github.com:kengonakajima/rumino.git
+[submodule "rel"]
+	path = rel
+	url = git@github.com:kengonakajima/rel.git

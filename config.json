@@ -1,0 +1,10 @@
+{
+    "name": "ghhook",
+    "skip": [  ],
+    "workdir" : "",
+    "procs": {
+      "main": {
+        "exec": "web.rb"                    
+      }
+    }
+}
