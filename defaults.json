@@ -1,0 +1,13 @@
+{
+    "webPort":20280,
+    "pidFile":"/tmp/ghhook-debug.pid",
+    "emailTo":"kengo.nakajima@gmail.com",
+    "httpLogFile":"/var/log/ghhook_http.log",
+    "mysql": {
+        "host" : "localhost",
+        "user" : "root",
+        "password" : "",
+        "database" : "ghhook"
+    },
+    "bindAddress":"0.0.0.0"
+}
