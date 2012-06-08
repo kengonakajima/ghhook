@@ -1,3 +1,3 @@
 [submodule "rumino"]
 	path = rumino
-	url = https://kengonakajima@github.com/kengonakajima/rumino
+	url = git@github.com:kengonakajima/rumino.git
