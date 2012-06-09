@@ -11,7 +11,7 @@ my = MysqlWrapper.new(conf["mysql"])
 
 my.query( "create table if not exists commits ( id bigint not null primary key auto_increment, username char(64), reponame char(128), sha char(40), data blob, index(username), index(reponame), index(sha) )")
 
-def my.saveCommit(username,repo,sha,data)
+def my.saveCommit(username,reponame,sha,data)
   
   res = query("select id from commits where sha=\"#{esc(sha)}\" ")
   if res.size>0 then 
@@ -19,7 +19,7 @@ def my.saveCommit(username,repo,sha,data)
     return
   end
 
-  newid = insert( "commits", { "username"=>username, "reponame"=>repo, "sha"=>sha, "data"=>data })
+  newid = insert( "commits", { "username"=>username, "reponame"=>reponame, "sha"=>sha, "data"=>data })
   return newid
 end
 
@@ -49,7 +49,7 @@ web.onPOST() do |req,res|
   commits.each do |cmt|
     sha = cmt["id"]
     jss = "" if private 
-    my.saveCommit( username, repo, sha, jss )
+    my.saveCommit( username, reponame, sha, jss )
   end
 
   p "commits:", my.count("commits")
