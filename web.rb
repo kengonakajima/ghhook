@@ -9,9 +9,9 @@ raise "need mysql in config" if !conf["mysql"]
 
 my = MysqlWrapper.new(conf["mysql"])
 
-my.query( "create table if not exists commits ( id bigint not null primary key auto_increment, username char(64), reponame char(128), sha char(40), data blob, index(username), index(reponame), index(sha) )")
+my.query( "create table if not exists commits ( id bigint not null primary key auto_increment, username char(64), reponame char(128), private int, sha char(40), data blob, index(username), index(reponame), index(sha) )")
 
-def my.saveCommit(username,reponame,sha,data)
+def my.saveCommit(username,reponame,sha,priv, data)
   
   res = query("select id from commits where sha=\"#{esc(sha)}\" ")
   if res.size>0 then 
@@ -19,7 +19,7 @@ def my.saveCommit(username,reponame,sha,data)
     return
   end
 
-  newid = insert( "commits", { "username"=>username, "reponame"=>reponame, "sha"=>sha, "data"=>data })
+  newid = insert( "commits", { "username"=>username, "reponame"=>reponame, "sha"=>sha, "private"=>priv, "data"=>data })
   return newid
 end
 
@@ -48,8 +48,7 @@ web.onPOST() do |req,res|
   commits = json["commits"]
   commits.each do |cmt|
     sha = cmt["id"]
-    jss = "" if private 
-    my.saveCommit( username, reponame, sha, jss )
+    my.saveCommit( username, reponame, sha, private, jss )
   end
 
   p "commits:", my.count("commits")
