@@ -14,7 +14,7 @@ my.query( "create table if not exists commits ( id bigint not null primary key a
 def my.saveCommit(username,reponame,sha,priv, data)
   
   res = query("select id from commits where sha=\"#{esc(sha)}\" ")
-  if res.size>0 then 
+  if res and res.size>0 then 
     p "commit #{sha} exists"
     return
   end
