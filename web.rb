@@ -9,7 +9,7 @@ raise "need mysql in config" if !conf["mysql"]
 
 my = MysqlWrapper.new(conf["mysql"])
 
-my.query( "create table if not exists commits ( id bigint not null primary key auto_increment, username char(64), reponame char(128), private int, sha char(40), data blob, index(username), index(reponame), index(sha) )")
+my.query( "create table if not exists commits ( id bigint not null primary key auto_increment, username char(64) not null, reponame char(128) not null, private int not null, sha char(40) not null, data blob, index(username), index(reponame), index(sha) )")
 
 def my.saveCommit(username,reponame,sha,priv, data)
   
