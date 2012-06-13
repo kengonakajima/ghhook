@@ -25,8 +25,7 @@ end
 
 
 
-web = MiniWeb.new()
-web.configure(conf)
+web = MiniWeb.new(conf)
 web.useGlobalTrapAndPidFile()
 web.onPOST() do |req,res|
 
